@@ -19,7 +19,15 @@ def ask_move(player, board):
 	
 # the evaluate_board function evaluate the board and update the game_status
 def evaluate_board(board):
-        return 'go'
+        lines = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]
+        status = 'go'
+        for line in lines:
+                i=line[0]
+                j=line[1]
+                k=line[2]
+                if (board[i] == board[j]) and (board[j] == board[k]) :
+                        status = 'won'
+        return status
 
 
 # the switch_turn function change turn to other player
@@ -32,8 +40,8 @@ def switch_player(player):
 
 		
 # the show_result function print the winner or tie
-def show_result():
-	if game_status == 'win':
+def show_result(game_status, player):
+	if game_status == 'won':
 		print('player ', player, ' won!')
 	else:
 		print('game finished tie!')
@@ -47,7 +55,8 @@ def main():
                 show_board(board)
                 board = ask_move(player, board)
                 game_status = evaluate_board(board)
-        show_result(game_status)
+        show_board(board)
+        show_result(game_status, player)
 	
 	
 			
